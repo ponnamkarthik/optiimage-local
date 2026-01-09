@@ -1,0 +1,5 @@
+{
+  "name": "OptiImage Local",
+  "description": "A secure, 100% browser-based image converter and compressor. No servers, no uploads, privacy-first.",
+  "requestFramePermissions": []
+}

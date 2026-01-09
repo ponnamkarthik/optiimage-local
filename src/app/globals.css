@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Base */
+  --background: 222 84% 5%; /* slate-950 */
+  --foreground: 214 32% 91%; /* slate-200 */
+
+  /* Surfaces */
+  --surface: 222 47% 11%; /* slate-900 */
+  --surface2: 215 28% 17%; /* slate-800 */
+  --surface3: 215 20% 25%; /* slate-700 */
+
+  /* Borders + muted text */
+  --border: 215 28% 17%; /* slate-800 */
+  --border2: 215 16% 47%; /* slate-600 */
+  --muted: 215 20% 65%; /* slate-400 */
+  --muted2: 215 16% 47%; /* slate-500 */
+
+  /* Inverted surfaces (for light buttons on dark UI) */
+  --invert: 210 40% 96%; /* slate-100 */
+  --invertForeground: 222 47% 11%; /* slate-900 */
+  --invertHover: 0 0% 100%; /* white */
+
+  /* Brand / accent (emerald -> teal) */
+  --accent: 160 84% 39%; /* emerald-500 */
+  --accentText: 158 64% 52%; /* emerald-400 */
+  --accentTo: 173 80% 35%; /* teal-600 */
+
+  /* Supporting accents */
+  --info: 217 91% 60%; /* blue-500 */
+  --infoText: 213 94% 68%; /* blue-400 */
+  --highlight: 271 81% 56%; /* purple-500 */
+  --highlightText: 270 95% 75%; /* purple-400 */
+
+  /* Destructive */
+  --danger: 0 84% 60%; /* red-500-ish */
+  --dangerText: 0 92% 71%; /* red-400-ish */
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  @apply bg-background text-foreground antialiased;
+}
+
+::selection {
+  background: hsl(var(--accent));
+  color: white;
+}
+
+/* Custom scrollbar (matches your current aesthetic) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--surface));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted2));
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted));
+}
