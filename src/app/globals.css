@@ -1,6 +1,41 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@source "../**/*.{js,ts,jsx,tsx,mdx}";
+
+@plugin "@tailwindcss/typography";
+@plugin "tailwindcss-animate";
+
+/* Tailwind v4 theme tokens (CSS-first) */
+@theme {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-surface: hsl(var(--surface));
+  --color-surface2: hsl(var(--surface2));
+  --color-surface3: hsl(var(--surface3));
+
+  --color-border: hsl(var(--border));
+  --color-border2: hsl(var(--border2));
+  --color-muted: hsl(var(--muted));
+  --color-muted2: hsl(var(--muted2));
+
+  --color-invert: hsl(var(--invert));
+  --color-invertForeground: hsl(var(--invertForeground));
+  --color-invertHover: hsl(var(--invertHover));
+
+  --color-accent: hsl(var(--accent));
+  --color-accentText: hsl(var(--accentText));
+  --color-accentTo: hsl(var(--accentTo));
+
+  --color-info: hsl(var(--info));
+  --color-infoText: hsl(var(--infoText));
+
+  --color-highlight: hsl(var(--highlight));
+  --color-highlightText: hsl(var(--highlightText));
+
+  --color-danger: hsl(var(--danger));
+  --color-dangerText: hsl(var(--dangerText));
+}
 
 :root {
   /* Base */
