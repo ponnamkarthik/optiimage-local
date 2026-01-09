@@ -52,7 +52,10 @@ export const metadata: Metadata = {
       "Reduce image file size, resize dimensions, and convert formats locally. No server uploads, 100% private.",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop",
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "OptiImage Local — Free Image Compressor & Resizer",
       },
     ],
   },
@@ -61,9 +64,7 @@ export const metadata: Metadata = {
     title: "Free Image Compressor & Resizer - Secure & Unlimited",
     description:
       "Reduce image file size, resize dimensions, and convert formats locally. No server uploads, 100% private.",
-    images: [
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop",
-    ],
+    images: ["/twitter-image"],
   },
   icons: {
     icon: [
