@@ -1,4 +1,7 @@
-import { Github, Zap } from "lucide-react";
+import { Github } from "lucide-react";
+import logo from "@/app/logo.svg";
+
+const logoSrc = typeof logo === "string" ? logo : logo.src;
 
 interface HeaderProps {
   onNavigateHome: () => void;
@@ -12,8 +15,14 @@ export default function Header({ onNavigateHome }: HeaderProps) {
           className="flex items-center gap-3 cursor-pointer group"
           onClick={onNavigateHome}
         >
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-accent to-accentTo text-white shadow-lg shadow-accent/20 group-hover:scale-105 transition-transform">
-            <Zap size={18} fill="currentColor" />
+          <div className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg bg-linear-to-br from-accent to-accentTo text-white shadow-lg shadow-accent/20 group-hover:scale-105 transition-transform">
+            <img
+              src={logoSrc}
+              alt="OptiImage Local"
+              width={18}
+              height={18}
+              className="h-4.5 w-4.5"
+            />
           </div>
           <h1 className="text-xl font-bold tracking-tight text-white">
             OptiImage <span className="text-muted2 font-medium">Local</span>

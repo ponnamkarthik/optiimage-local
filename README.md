@@ -2,7 +2,7 @@
 
 **Free, privacy-first image compressor, resizer, and format converter — 100% in your browser.**
 
-If you’re looking for a TinyPNG/TinyJPG alternative that **doesn’t upload your files**, OptiImage Local processes everything locally (client-side) and works great as a static site.
+If you’re looking for an alternative to typical online image compressors that **doesn’t upload your files**, OptiImage Local processes everything locally (client-side) and works great as a static site.
 
 ## What it does
 
