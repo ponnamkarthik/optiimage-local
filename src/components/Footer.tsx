@@ -18,7 +18,7 @@ export default function Footer({
         </p>
         <div className="flex justify-center items-center gap-6">
           <a
-            href="https://github.com/your-username/optiimage"
+            href="https://github.com/ponnamkarthik/optiimage-local"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-accentText transition-colors flex items-center gap-2"

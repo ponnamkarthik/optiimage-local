@@ -22,7 +22,7 @@ export default function Header({ onNavigateHome }: HeaderProps) {
 
         <div className="flex items-center gap-4 text-sm font-medium text-muted">
           <a
-            href="https://github.com/your-username/optiimage/issues"
+            href="https://github.com/ponnamkarthik/optiimage-local/issues"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 hover:text-accentText transition-colors"
