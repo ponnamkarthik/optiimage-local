@@ -315,8 +315,8 @@ export default function ImageCard({
                     hasSaved
                       ? "text-accentText"
                       : isLarger
-                        ? "text-dangerText"
-                        : "text-foreground"
+                      ? "text-dangerText"
+                      : "text-foreground"
                   }`}
                 >
                   {formatBytes(item.result.size)}
@@ -327,15 +327,15 @@ export default function ImageCard({
                   hasSaved
                     ? "text-accent bg-accent/10"
                     : isLarger
-                      ? "text-dangerText bg-danger/10"
-                      : "text-muted2 bg-surface3/50"
+                    ? "text-dangerText bg-danger/10"
+                    : "text-muted2 bg-surface3/50"
                 }`}
               >
                 {hasSaved
                   ? `-${item.result.reduction.toFixed(1)}%`
                   : isLarger
-                    ? `+${Math.abs(item.result.reduction).toFixed(1)}%`
-                    : "No change"}
+                  ? `+${Math.abs(item.result.reduction).toFixed(1)}%`
+                  : "No change"}
               </span>
             </div>
           ) : null}

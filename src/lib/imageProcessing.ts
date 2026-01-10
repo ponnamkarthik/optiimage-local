@@ -181,7 +181,9 @@ const encodeWithJsquash = async (
       const { default: optimise } = await import("@jsquash/oxipng/optimise");
       // PNG is lossless and can be slow on large images; keep optimisation fast by default.
       // If we later expose a UI toggle for autoMode, this can be used to switch presets.
-      const optimised = await optimise(png, { level: settings.autoMode ? 1 : 3 });
+      const optimised = await optimise(png, {
+        level: settings.autoMode ? 1 : 3,
+      });
       return new Blob([optimised], { type: ImageFormat.PNG });
     }
     default:
