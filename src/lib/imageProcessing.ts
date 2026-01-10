@@ -179,7 +179,9 @@ const encodeWithJsquash = async (
       const { default: encode } = await import("@jsquash/png/encode");
       const png = await encode(data as ImageData, { bitDepth: 8 });
       const { default: optimise } = await import("@jsquash/oxipng/optimise");
-      const optimised = await optimise(png);
+      // PNG is lossless and can be slow on large images; keep optimisation fast by default.
+      // If we later expose a UI toggle for autoMode, this can be used to switch presets.
+      const optimised = await optimise(png, { level: settings.autoMode ? 1 : 3 });
       return new Blob([optimised], { type: ImageFormat.PNG });
     }
     default:

@@ -142,6 +142,7 @@ export default function ImageCard({
 
   const isDone = item.status === "done";
   const hasSaved = item.result && item.result.reduction > 0;
+  const isLarger = item.result && item.result.reduction < 0;
 
   return (
     <div className="group relative overflow-hidden rounded-xl border border-border bg-surface2/50 shadow-sm transition-all hover:border-border/80 hover:bg-surface2">
@@ -296,7 +297,7 @@ export default function ImageCard({
           )}
         </div>
 
-        <div className="flex items-center justify-end min-w-[140px] gap-3">
+        <div className="flex items-center justify-end min-w-35 gap-3">
           {item.status === "processing" ? (
             <div className="flex items-center gap-2 text-accentText text-sm animate-pulse">
               <RefreshCw size={16} className="animate-spin" />
@@ -311,7 +312,11 @@ export default function ImageCard({
                 <ArrowRight size={12} className="text-muted2" />
                 <span
                   className={`text-sm font-bold ${
-                    hasSaved ? "text-accentText" : "text-foreground"
+                    hasSaved
+                      ? "text-accentText"
+                      : isLarger
+                        ? "text-dangerText"
+                        : "text-foreground"
                   }`}
                 >
                   {formatBytes(item.result.size)}
@@ -321,12 +326,16 @@ export default function ImageCard({
                 className={`text-xs font-medium px-2 py-0.5 rounded-full ${
                   hasSaved
                     ? "text-accent bg-accent/10"
-                    : "text-muted2 bg-surface3/50"
+                    : isLarger
+                      ? "text-dangerText bg-danger/10"
+                      : "text-muted2 bg-surface3/50"
                 }`}
               >
                 {hasSaved
                   ? `-${item.result.reduction.toFixed(1)}%`
-                  : "No reduction"}
+                  : isLarger
+                    ? `+${Math.abs(item.result.reduction).toFixed(1)}%`
+                    : "No change"}
               </span>
             </div>
           ) : null}
