@@ -20,7 +20,7 @@ export default function AppClient() {
   const [images, setImages] = useState<ImageFile[]>([]);
   const [globalQuality] = useState(DEFAULT_QUALITY);
   const [globalFormat, setGlobalFormat] = useState<ImageFormat>(
-    ImageFormat.ORIGINAL
+    ImageFormat.ORIGINAL,
   );
   const [isDownloadingAll, setIsDownloadingAll] = useState(false);
 
@@ -70,12 +70,12 @@ export default function AppClient() {
               maintainAspectRatio: true,
             },
           } as ImageFile;
-        })
+        }),
       );
 
       setImages((prev) => [...prev, ...newImages]);
     },
-    [globalQuality, globalFormat]
+    [globalQuality, globalFormat],
   );
 
   const removeImage = useCallback((id: string) => {
@@ -136,29 +136,29 @@ export default function AppClient() {
                 })(),
                 settings: { ...img.settings, ...newSettings },
               }
-            : img
-        )
+            : img,
+        ),
       );
     },
-    []
+    [],
   );
 
   const handleProcessComplete = useCallback(
     (id: string, result: ImageFile["result"]) => {
       setImages((prev) =>
         prev.map((img) =>
-          img.id === id ? { ...img, status: "done", result } : img
-        )
+          img.id === id ? { ...img, status: "done", result } : img,
+        ),
       );
     },
-    []
+    [],
   );
 
   const handleError = useCallback((id: string, error: string) => {
     setImages((prev) =>
       prev.map((img) =>
-        img.id === id ? { ...img, status: "error", error } : img
-      )
+        img.id === id ? { ...img, status: "error", error } : img,
+      ),
     );
   }, []);
 
@@ -177,7 +177,7 @@ export default function AppClient() {
           status: "processing",
           settings: { ...img.settings, format: nextFormat },
         };
-      })
+      }),
     );
   }, []);
 
@@ -231,7 +231,7 @@ export default function AppClient() {
   const totalSaved = images.reduce(
     (acc, img) =>
       img.result ? acc + (img.originalSize - img.result.size) : acc,
-    0
+    0,
   );
   const totalSavedMB = totalSaved / 1024 / 1024;
   const processedCount = images.filter((i) => i.status === "done").length;
