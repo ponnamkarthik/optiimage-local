@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import ImageCard from "@/components/ImageCard";
 import { PrivacyView, TermsView } from "@/components/LegalViews";
-import { DEFAULT_QUALITY } from "@/lib/constants";
+import { DEFAULT_QUALITY, EXTENSIONS } from "@/lib/constants";
 import { getImageDimensions } from "@/lib/imageProcessing";
 import { CompressionSettings, ImageFile, ImageFormat } from "@/lib/types";
 
@@ -22,6 +22,19 @@ export default function AppClient() {
   const [globalFormat, setGlobalFormat] = useState<ImageFormat>(
     ImageFormat.ORIGINAL
   );
+  const [isDownloadingAll, setIsDownloadingAll] = useState(false);
+
+  const getOutputFilename = useCallback((img: ImageFile) => {
+    let ext = EXTENSIONS[img.settings.format];
+    if (img.settings.format === ImageFormat.ORIGINAL) {
+      ext = img.file.name.split(".").pop() || "jpg";
+    }
+
+    const namePart =
+      img.file.name.substring(0, img.file.name.lastIndexOf(".")) ||
+      img.file.name;
+    return `${namePart}-opt.${ext}`;
+  }, []);
 
   const handleFilesDropped = useCallback(
     async (files: File[]) => {
@@ -168,20 +181,52 @@ export default function AppClient() {
     );
   }, []);
 
-  const handleDownloadAll = useCallback(() => {
-    const anchor = document.createElement("a");
-    document.body.appendChild(anchor);
+  const handleDownloadAll = useCallback(async () => {
+    if (isDownloadingAll) return;
 
-    images.forEach((img) => {
-      if (img.status === "done" && img.result) {
-        anchor.href = img.result.url;
-        anchor.download = `opt-${img.file.name}`;
-        anchor.click();
-      }
-    });
+    const ready = images.filter((img) => img.status === "done" && img.result);
+    if (ready.length === 0) return;
 
-    document.body.removeChild(anchor);
-  }, [images]);
+    // Single file: avoid zip overhead.
+    if (ready.length === 1) {
+      const img = ready[0];
+      if (!img.result) return;
+
+      const link = document.createElement("a");
+      link.href = img.result.url;
+      link.download = getOutputFilename(img);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      return;
+    }
+
+    setIsDownloadingAll(true);
+    try {
+      const JSZip = (await import("jszip")).default;
+      const zip = new JSZip();
+
+      ready.forEach((img) => {
+        if (!img.result) return;
+        zip.file(getOutputFilename(img), img.result.blob);
+      });
+
+      const zipBlob = await zip.generateAsync({ type: "blob" });
+      const zipUrl = URL.createObjectURL(zipBlob);
+
+      const link = document.createElement("a");
+      link.href = zipUrl;
+      link.download = `optiimage-${new Date().toISOString().slice(0, 10)}.zip`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Revoke after click to free memory.
+      setTimeout(() => URL.revokeObjectURL(zipUrl), 10_000);
+    } finally {
+      setIsDownloadingAll(false);
+    }
+  }, [getOutputFilename, images, isDownloadingAll]);
 
   const totalSaved = images.reduce(
     (acc, img) =>
@@ -224,7 +269,7 @@ export default function AppClient() {
                 totalSavedMB={totalSavedMB}
                 onClearAll={clearAll}
                 onDownloadAll={handleDownloadAll}
-                canDownload={processedCount > 0}
+                canDownload={processedCount > 0 && !isDownloadingAll}
               />
             )}
 
