@@ -101,7 +101,7 @@ export default function ImageCard({
     const namePart =
       item.file.name.substring(0, item.file.name.lastIndexOf(".")) ||
       item.file.name;
-    link.download = `${namePart}-opt.${ext}`;
+    link.download = `${namePart}.${ext}`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

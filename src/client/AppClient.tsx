@@ -33,7 +33,7 @@ export default function AppClient() {
     const namePart =
       img.file.name.substring(0, img.file.name.lastIndexOf(".")) ||
       img.file.name;
-    return `${namePart}-opt.${ext}`;
+    return `${namePart}.${ext}`;
   }, []);
 
   const handleFilesDropped = useCallback(
